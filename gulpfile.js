@@ -13,6 +13,7 @@ var uglify = require('gulp-uglify');
 var header = require('gulp-header');
 var footer = require('gulp-footer');
 var clean = require('gulp-clean');
+var ghPages = require('gulp-gh-pages');
 var webserver = require('gulp-webserver');
 var flatten = require('gulp-flatten');
 var buildConfig = require('./build.config.js');
@@ -363,6 +364,12 @@ gulp.task('build-trad', function (callback) {
         callback);
 });
 
+
+
+gulp.task('deploy', function() {
+    return gulp.src([ buildConfig.distFolder +'/**/*'])
+        .pipe(ghPages());
+});
 
 /**
  * Simple function to remove item from array by value.

@@ -1,20 +1,26 @@
-angular.module('robot.manager')
-    .service('RobotPlayerService',['$http','ApplicationService',
-        function($http,ApplicationService){
+'use strict';
 
+angular.module('robot.manager')
+    .service('RobotPlayerService',['ApplicationService','$http',
+        function(ApplicationService,$http){
+
+
+            function _error() {
+
+            }
 
             function _playHand(hand){
-                return  $http({
-                    method: 'GET',
-                    url: ApplicationService.load().API.URL + '/fingers', params:hand
-                })
+               return $http({
+                    method:'GET',
+                    url: ApplicationService.load().API.URL + '/fingers',
+                    params:hand
+                    })
 
             }
 
 
             return {
-                playHand:_playHand
+                playHand : _playHand
             }
-
 
         }]);
