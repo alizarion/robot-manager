@@ -1,28 +1,39 @@
 'use strict';
 
-angular.module('MusicManager', [
-    'itesoft',
-    'ngRoute',
-    'ngSanitize',
-    'pascalprecht.translate',
-    'ui.bootstrap.dropdown'
+
+angular.module('robot.manager', [
+        'itesoft',
+        'localStorage.services',
+        'ngRoute',
+        'ui.hand',
+        'ngSanitize',
+        'pascalprecht.translate',
+        'ui.bootstrap.dropdown'
     ])
-    .config(['$translateProvider', '$translatePartialLoaderProvider', function ($translateProvider, $translatePartialLoaderProvider) {
-        // Declare languages mapping
-        $translateProvider.registerAvailableLanguageKeys(['en', 'fr', 'de'], {
-            'en_US': 'en',
-            'en_GB': 'en',
-            'fr_FR': 'fr',
-            'fr-CA': 'fr',
-            'de-DE': 'de'
-        }).determinePreferredLanguage();
+    .config(['$translateProvider',
+        '$translatePartialLoaderProvider',
+        function ($translateProvider,
+                  $translatePartialLoaderProvider) {
+            // Declare languages mapping
 
-        // Use partial loader
-        $translateProvider.useLoader('$translatePartialLoader', {
-            urlTemplate: 'assets/locale/{lang}/{part}-{lang}.json'
-        });
+            $translateProvider.registerAvailableLanguageKeys(['en', 'fr', 'de'], {
+                'en_US': 'en',
+                'en_GB': 'en',
+                'fr_FR': 'fr',
+                'fr-CA': 'fr',
+                'de-DE': 'de'
+            }).determinePreferredLanguage();
 
-        $translateProvider.useSanitizeValueStrategy();
+            // Use partial loader
+            $translateProvider.useLoader('$translatePartialLoader', {
+                urlTemplate: 'assets/locale/{lang}/{part}-{lang}.json'
+            });
+
+            $translateProvider.useSanitizeValueStrategy();
+        }])
+    .config([ 'ITLocalStorageProvider',function(ITLocalStorageProvider){
+        ITLocalStorageProvider.defaultKey = "ROBOT_MANAGER";
+
     }])
     .run(['$rootScope', '$route', function ($rootScope, $route) {
         $rootScope.$on('$routeChangeSuccess', function () {
